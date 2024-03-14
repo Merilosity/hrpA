@@ -14,6 +14,8 @@ mixin variables {
   static bool s3Pressed = false;
   static bool s4Pressed = false;
 
+  static bool anySampleSelected = false;
+
   static String s_1 = 'assets/images/S-1.png';
   static String s_2 = 'assets/images/S-2.png';
   static String s_3 = 'assets/images/S-3.png';
@@ -37,6 +39,8 @@ mixin variables {
   static String rButtonPressed = 'assets/images/B-Radiology-Pressed.png';
   static String analysedButton = 'assets/images/B-Analyse.png';
   static String analysedButtonPressed = 'assets/images/B-Analyse-Pressed.png';
+
+  static String questionButton = 'assets/images/B-Question.png';
 
   static String generateReportButton = 'assets/images/B-Generate-Report.png';
   static String tryAnotherSampleButton = 'assets/images/B-Try-another-Sample.png';

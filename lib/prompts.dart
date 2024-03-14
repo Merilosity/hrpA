@@ -1,4 +1,5 @@
 class prompts{
+
   static String s_1_intro_prompt= 'Hello, please give me a report on Hematology Sample 1.';
   static String s_2_intro_prompt= 'Hello, please give me a report on Hematology Sample 2.';
   static String s_3_intro_prompt= 'Hello, please give me a report on Hematology Sample 3.';
@@ -112,6 +113,41 @@ Considering the AI's indication of a potential effusion, this X-ray may warrant 
 The risk assessment chart demonstrates the AI's predictions for various pulmonary conditions, with the majority of conditions marked with green bars indicating a lower likelihood of presence. However, the condition of hernia is notably marked with an orange bar, suggesting a moderate to high probability, though not with complete certainty as it doesn't reach into the red zone or the central white area, which would represent a definitive model prediction. This suggests that the AI has detected signs that could be indicative of a hernia in the X-ray, but further clinical evaluation is needed to confirm the finding.
 
 Given the focus on hernia and the AI's annotations, additional diagnostic considerations may include a CT scan for a more detailed examination of the area, alongside a review of the patient's clinical history and symptoms to ascertain the significance of these findings and plan appropriate treatment." ''';
+
+  static String hemaInfo= ''' Scopio Labs is revolutionizing hematology and full-field morphology with its cutting-edge digital imaging platforms. Their technology enables high-resolution imaging of blood smears at 100X magnification, allowing for detailed analysis and remote review capabilities. This innovative approach supports more confident clinical decision-making and efficient workflow processes, significantly improving patient care quality. Scopio Labs combines full-field imaging with AI to enhance diagnostic accuracy in hematology, offering tools that streamline the review process and facilitate real-time collaboration among healthcare professionals.\n\n''';
+  static String patoInfo= '''
+  QuPath, an open-source digital pathology software, has significantly advanced the field of pathology by enhancing the analysis and understanding of various diseases, including cancer. Its capabilities in digital immunohistochemistry and whole slide image analysis have been widely recognized and validated in numerous medical research publications.
+
+QuPath's impact is notably profound in cancer research, where it has been employed to analyze tumor microenvironments, including the evaluation of tumor-infiltrating lymphocytes (TILs), which are pivotal for understanding cancer prognosis and treatment outcomes. The software's deep learning extensions, such as the WSInfer extension, facilitate the spatial identification of TILs, offering insights into the immune landscape of tumors and potentially guiding immunotherapy decisions[1].
+
+In a study published in Scientific Reports, QuPath demonstrated its capability to analyze a large cohort of colon cancer cases, providing quantitative assessments of biomarkers like CD3 and CD8. The software enabled efficient analysis of immunohistochemically stained tissue microarrays, yielding data that correlated with disease-specific survival. This illustrates QuPath's utility in assessing the prognostic significance of immune markers in colorectal cancer, thereby contributing to the field's understanding of cancer immunology[2].
+
+Furthermore, QuPath has been applied in placental tissue analysis, showcasing its versatility beyond oncology. The analysis focused on quantifying staining of specific receptors in placental tissues, comparing QuPath's digital scoring with traditional visual scoring methods. This study highlights QuPath's potential to bring accuracy and efficiency to a broader range of pathology applications, including the investigation of pregnancy-related pathologies[3].
+
+QuPath's extensive use and the validation of its analytical capabilities across different studies underscore its importance in modern pathology. By leveraging QuPath's powerful image analysis tools, researchers and clinicians can uncover novel insights into disease mechanisms, improve diagnostic accuracy, and potentially tailor treatments to individual patient profiles, thereby advancing personalized medicine.
+
+These examples demonstrate QuPath's critical role in enhancing our understanding of disease pathology and treatment, supported by its widespread adoption and validation in the scientific community. Its open-source nature and continuous development promise further advancements in digital pathology, making it an invaluable tool for research and clinical practice alike.\n\n
+   ''';
+  static String radInfo=  ''' 
+  Chester AI employs a DenseNet-121 model, an advanced neural network architecture, enabling it to process images for 18 different radiological findings, leveraging datasets from leading public repositories such as NIH, PadChest, and MIMIC-CXR. Its unique approach ensures all processing occurs locally on the user's device, thereby prioritizing data privacy and security—a paramount concern in medical applications[1][2].
+  
+  Designed as a second opinion tool, Chester AI assists medical professionals in confirming or revising diagnoses, thereby enhancing diagnostic accuracy and potentially reducing the time to treatment. While its utility in educational settings and as a demonstration of AI's capabilities in medical diagnostics is well documented, it's crucial to acknowledge the system's current limitations, including its prototype status and the explicit advisory against its use for medical purposes without professional oversight[3].
+  
+  The ongoing development of Chester AI, with goals to expand its capabilities and possibly integrate additional diagnostic functionalities, highlights the dynamic nature of AI research in radiology. As AI models become more sophisticated and datasets more comprehensive, the potential for AI to support radiological diagnostics will likely expand, potentially including more complex imaging analyses and broader diagnostic applications[4]\n\n''';
+
+  static String hemaRef1 = '[1] https://scopiolabs.com';
+
+  static String patoRef1 = "[1] Kaczmarzyk, J.R., O’Callaghan, A., Inglis, F. et al. Open and reusable deep learning for pathology with WSInfer and QuPath. npj Precis. Onc. 8, 9 (2024). https://doi.org/10.1038/s41698-024-00499-9\n\n";
+  static String patoRef2 = "[2] Bankhead, P., Loughrey, M.B., Fernández, J.A. et al. QuPath: Open source software for digital pathology image analysis. Sci Rep 7, 16878 (2017).\n\n ";
+  static String patoRef3 = "[3] Hein AL, Mukherjee M, Talmon GA, Natarajan SK, Nordgren TM, Lyden E, Hanson CK, Cox JL, Santiago-Pintado A, Molani MA, Ormer MV, Thompson M, Thoene M, Akhter A, Anderson-Berry A, Yuil-Valdes AG. QuPath Digital Immunohistochemical Analysis of Placental Tissue. J Pathol Inform. 2021 Nov 1;12:40. doi: 10.4103/jpi.jpi_11_21. PMID: 34881095; PMCID: PMC8609285.\n\n";
+
+  static String radRef1 = '[1] https://mlmed.org/tools/xray/\n\n';
+  static String radRef2 = '[2] https://welovelmc.com/artificial-intelligence/chester-ai-radiology-assistant.htm\n\n';
+  static String radRef3 = '[3] https://mila.quebec/en/chester-the-ai-radiology-assistant/\n\n';
+  static String radRef4 = '[4] Joseph Paul Cohen, Paul Bertin, Vincent Frappier, Chester: A Web Delivered Locally Computed Chest X-Ray Disease Prediction System, https://doi.org/10.48550/arXiv.1901.11210\n\n';
+
+
+
 
 
 

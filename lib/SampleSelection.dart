@@ -114,6 +114,7 @@ class _SampleSelection extends State<SampleSelection> {
                               variables.s2Pressed = false;
                               variables.s3Pressed = false;
                               variables.s4Pressed = false;
+
                             });
                           }, // Image tapped
                           child: Image.asset(
@@ -144,6 +145,7 @@ class _SampleSelection extends State<SampleSelection> {
                               variables.s2Pressed = false;
                               variables.s3Pressed = false;
                               variables.s4Pressed = false;
+                              variables.anySampleSelected = true;
                             });
                           }, // Image tapped
                           child: Container(
@@ -169,6 +171,7 @@ class _SampleSelection extends State<SampleSelection> {
                               variables.s1Pressed = false;
                               variables.s3Pressed = false;
                               variables.s4Pressed = false;
+                              variables.anySampleSelected = true;
                             });
                           }, // Image tapped
                           child: Container(
@@ -204,6 +207,7 @@ class _SampleSelection extends State<SampleSelection> {
                               variables.s1Pressed = false;
                               variables.s2Pressed = false;
                               variables.s4Pressed = false;
+                              variables.anySampleSelected = true;
                             });
                           }, // Image tapped
                           child: Container(
@@ -227,6 +231,7 @@ class _SampleSelection extends State<SampleSelection> {
                               variables.s1Pressed = false;
                               variables.s2Pressed = false;
                               variables.s3Pressed = false;
+                              variables.anySampleSelected = true;
                             });
                           }, // Image tapped
                           child: Container(
@@ -256,60 +261,64 @@ class _SampleSelection extends State<SampleSelection> {
                         flex: 5,
                         child: GestureDetector(
                           onTap: () {
-                              setState(() {
-                                variables.analysePressed = true;
 
-                                if(variables.s1Pressed && variables.analysePressed && variables.hematologyPressed){
+                                if(variables.anySampleSelected == true){
                                   setState(() {
-                                    variables.h_1selected = true;
-                                  });
-                                }else if(variables.s2Pressed && variables.analysePressed && variables.hematologyPressed){
-                                  setState(() {
-                                    variables.h_2selected = true;
-                                  });
-                                }else if(variables.s3Pressed && variables.analysePressed && variables.hematologyPressed){
-                                  setState(() {
-                                    variables.h_3selected = true;
-                                  });
-                                }else if(variables.s4Pressed && variables.analysePressed && variables.hematologyPressed){
-                                  setState(() {
-                                    variables.h_4selected = true;
-                                  });
-                                }else if(variables.s1Pressed && variables.analysePressed && variables.pathologyPressed){
-                                  setState(() {
-                                    variables.p_1selected = true;
-                                  });
-                                }else if(variables.s2Pressed && variables.analysePressed && variables.pathologyPressed){
-                                  setState(() {
-                                    variables.p_2selected = true;
-                                  });
-                                }else if(variables.s3Pressed && variables.analysePressed && variables.pathologyPressed){
-                                  setState(() {
-                                    variables.p_3selected = true;
-                                  });
-                                }else if(variables.s4Pressed && variables.analysePressed && variables.pathologyPressed){
-                                  setState(() {
-                                    variables.p_4selected = true;
-                                  });
-                                }else if(variables.s1Pressed && variables.analysePressed && variables.radiologyPressed){
-                                  setState(() {
-                                    variables.r_1selected = true;
-                                  });
-                                }else if(variables.s2Pressed && variables.analysePressed && variables.radiologyPressed){
-                                  setState(() {
-                                    variables.r_2selected = true;
-                                  });
-                                }else if(variables.s3Pressed && variables.analysePressed && variables.radiologyPressed){
-                                  setState(() {
-                                    variables.r_3selected = true;
-                                  });
-                                }else if(variables.s4Pressed && variables.analysePressed && variables.radiologyPressed){
-                                  setState(() {
-                                    variables.r_4selected = true;
+                                    variables.analysePressed = true;
+
+                                    if(variables.s1Pressed && variables.analysePressed && variables.hematologyPressed){
+                                      setState(() {
+                                        variables.h_1selected = true;
+                                      });
+                                    }else if(variables.s2Pressed && variables.analysePressed && variables.hematologyPressed){
+                                      setState(() {
+                                        variables.h_2selected = true;
+                                      });
+                                    }else if(variables.s3Pressed && variables.analysePressed && variables.hematologyPressed){
+                                      setState(() {
+                                        variables.h_3selected = true;
+                                      });
+                                    }else if(variables.s4Pressed && variables.analysePressed && variables.hematologyPressed){
+                                      setState(() {
+                                        variables.h_4selected = true;
+                                      });
+                                    }else if(variables.s1Pressed && variables.analysePressed && variables.pathologyPressed){
+                                      setState(() {
+                                        variables.p_1selected = true;
+                                      });
+                                    }else if(variables.s2Pressed && variables.analysePressed && variables.pathologyPressed){
+                                      setState(() {
+                                        variables.p_2selected = true;
+                                      });
+                                    }else if(variables.s3Pressed && variables.analysePressed && variables.pathologyPressed){
+                                      setState(() {
+                                        variables.p_3selected = true;
+                                      });
+                                    }else if(variables.s4Pressed && variables.analysePressed && variables.pathologyPressed){
+                                      setState(() {
+                                        variables.p_4selected = true;
+                                      });
+                                    }else if(variables.s1Pressed && variables.analysePressed && variables.radiologyPressed){
+                                      setState(() {
+                                        variables.r_1selected = true;
+                                      });
+                                    }else if(variables.s2Pressed && variables.analysePressed && variables.radiologyPressed){
+                                      setState(() {
+                                        variables.r_2selected = true;
+                                      });
+                                    }else if(variables.s3Pressed && variables.analysePressed && variables.radiologyPressed){
+                                      setState(() {
+                                        variables.r_3selected = true;
+                                      });
+                                    }else if(variables.s4Pressed && variables.analysePressed && variables.radiologyPressed){
+                                      setState(() {
+                                        variables.r_4selected = true;
+                                      });
+                                    }
+                                    Navigator.push(context, PageTransition(type: PageTransitionType.fade,duration: Duration(milliseconds: 500), child: ImageAnalysis()));
                                   });
                                 }
-                                Navigator.push(context, PageTransition(type: PageTransitionType.fade,duration: Duration(milliseconds: 500), child: ImageAnalysis()));
-                              });
+
                           }, // Image tapped
                           child: Image.asset(
                             (variables.s1Pressed || variables.s2Pressed || variables.s3Pressed || variables.s4Pressed) ? variables.analysedButtonPressed : variables.analysedButton,

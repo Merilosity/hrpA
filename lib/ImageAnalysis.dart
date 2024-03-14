@@ -1,9 +1,14 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hrp/GeneratedReport.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'color_variables.dart';
 import 'variables.dart';
 import 'package:hrp/ChatSection.dart';
+import 'prompts.dart';
 
 
 class ImageAnalysis extends StatefulWidget{
@@ -17,8 +22,30 @@ class ImageAnalysis extends StatefulWidget{
 
 }
 
+final Uri hemaSource1 = Uri.parse('');
+final Uri hemaSource2 = Uri.parse('');
+final Uri hemaSource3 = Uri.parse('');
+
+final Uri patoSource1 = Uri.parse('https://www.nature.com/articles/s41698-024-00499-9');
+final Uri patoSource2 = Uri.parse('https://www.nature.com/articles/s41598-017-17204-5');
+final Uri patoSource3 = Uri.parse('https://pubmed.ncbi.nlm.nih.gov/34881095/');
+
+final Uri radSource1 = Uri.parse('https://mlmed.org/tools/xray/');
+final Uri radSource2 = Uri.parse('https://welovelmc.com/artificial-intelligence/chester-ai-radiology-assistant.htm');
+final Uri radSource3 = Uri.parse('https://mila.quebec/en/chester-the-ai-radiology-assistant/');
+final Uri radSource4 = Uri.parse('https://arxiv.org/abs/1901.11210');
+final Uri radSource5 = Uri.parse('');
+
+Future<void> _launchUrl(source) async {
+  if (!await launchUrl(source)) {
+    throw Exception('Could not launch $source');
+  }
+}
+
 class _ImageAnalysis extends State<ImageAnalysis>{
   bool isLoading = false;
+  bool infoPressed = false;
+  bool infoBoxVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -173,35 +200,77 @@ class _ImageAnalysis extends State<ImageAnalysis>{
                               ),
                             ),
                             if (isLoading) _buildLoadingOverlay(),
-                            Column( /// BOTTOM BAR  WITH OVERLAY
-                              children: [
-                                SizedBox(
-                                  width: screenWidth*0.50,
-                                  height: screenHeight * 0.74,
-                                ),
-                                SizedBox(
-                                  width: screenWidth*0.50,
-                                  height: screenHeight * 0.1,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Spacer(flex: 1,),
-                                      Flexible(
-                                        flex: 5,
-                                        child: GestureDetector(
-                                          onTap: generateReport,
-                                          child: Image.asset(
-                                            variables.analysedButton,
-                                            fit: BoxFit.contain,
-                                            width: double.infinity,
+                            if(infoPressed) _buildInfoBoxOverlay(screenWidth*0.45,screenHeight*0.60, screenWidth*0.05,screenHeight*0.10, screenWidth*0.05,screenHeight*0.15),
+                            Stack(
+                              children:[
+                                Column( /// BOTTOM BAR  WITH OVERLAY
+                                children: [
+                                  SizedBox(
+                                    width: screenWidth*0.50,
+                                    height: screenHeight * 0.74,
+                                  ),
+                                  SizedBox(
+                                    width: screenWidth*0.50,
+                                    height: screenHeight * 0.1,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Spacer(flex: 1,),
+                                        Flexible(
+                                          flex: 5,
+                                          child: GestureDetector(
+                                            onTap: generateReport,
+                                            child: Image.asset(
+                                              variables.analysedButton,
+                                              fit: BoxFit.contain,
+                                              width: double.infinity,
+                                            ),
                                           ),
                                         ),
+                                        Spacer(flex: 1,),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                                SizedBox(
+                                  width: screenWidth*0.50,
+                                  height: screenHeight * 0.80,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: screenWidth*0.50,
+                                        height: screenHeight * 0.60,
                                       ),
-                                      Spacer(flex: 1,),
+                                      SizedBox(
+                                        width: screenWidth*0.50,
+                                        height: screenHeight * 0.10,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            SizedBox(width: screenWidth*0.005,),
+                                            GestureDetector(
+                                              onTap: (){
+                                                setState(() {
+                                                  //generateInfoBox();
+                                                  infoPressed = !infoPressed;
+                                                });
+                                              },
+                                              child: Image.asset(
+                                                variables.questionButton,
+                                                fit: BoxFit.contain,
+                                                width: screenWidth*0.09,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
-                              ],
+                              ]
                             ),
                           ],
                         )
@@ -222,7 +291,7 @@ class _ImageAnalysis extends State<ImageAnalysis>{
     return Positioned.fill(
       child: Container(
         color: Colors.black45,
-        child: Center(
+        child: const Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Colors.orangeAccent),
           ),
@@ -230,6 +299,176 @@ class _ImageAnalysis extends State<ImageAnalysis>{
       ),
     );
   }
+
+  Widget _buildInfoBoxOverlay(widthBox, heightBox, l, t, r, b){
+    return Positioned.fill(
+        child: AnimatedOpacity(
+          opacity: infoPressed ? 1.0 : 0.0,
+          duration: const Duration(milliseconds: 500),
+          child: Container(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(l, t, r, b),
+              child: Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 20,
+                ),
+                padding: const EdgeInsets.all(20),
+                width: widthBox,
+                height: heightBox,
+                decoration: BoxDecoration(
+                  color: Colors.black87,
+                    borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    width: 1.5,
+                    color: Colors.white54
+                  )
+                ),
+                child: Builder(
+                  builder: (context) {
+                    String textString = infoTextPromptMap();
+                    return SingleChildScrollView(
+                      child: RichText(
+                        text: TextSpan(
+                          children:[
+                            TextSpan(
+                              text: textString,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontFamily: "Cera Pro",
+                              ),
+                            ),
+                            TextSpan(
+                              text: infoTextReference1(),
+                              style: const TextStyle(
+                                color: Colors.cyan,
+                                fontFamily: "Cera Pro",
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = (){_launchUrl(url1Map());}
+                            ),
+                            TextSpan(
+                                text: infoTextReference2(),
+                                style: const TextStyle(
+                                  color: Colors.cyan,
+                                  fontFamily: "Cera Pro",
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = (){_launchUrl(url2Map());}
+                            ),
+                            TextSpan(
+                                text: infoTextReference3(),
+                                style: const TextStyle(
+                                  color: Colors.cyan,
+                                  fontFamily: "Cera Pro",
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = (){_launchUrl(url3Map());}
+                            ),
+                            TextSpan(
+                                text: infoTextReference4(),
+                                style: const TextStyle(
+                                  color: Colors.cyan,
+                                  fontFamily: "Cera Pro",
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = (){_launchUrl(url4Map());}
+                            ),
+                          ]
+                        ),
+                      ),
+                    );
+                  }
+                ),
+              ),
+            ),
+          ),
+        )
+    );
+  }
+
+  //void generateInfoBox() async{
+   // infoPressed = true;
+ // }
+
+  void generateReport() async {
+    setState(() {
+      isLoading = true;
+      prompt = '';
+      variables.generatePressed = true;
+    });
+
+    final speech = await openAiService.chatGPTApi(prompt);
+
+    setState(() {
+      isLoading = false;
+      chatSpeech = speech;
+      variables.generatePressed = true;
+    });
+
+    if(mounted){
+      setState(() {
+        Navigator.push(context, PageTransition(type: PageTransitionType.fade,duration: Duration(milliseconds: 500), child: GeneratedReport()));
+      });
+    }
+    //promptController.clear();
+  }
+
+   String infoTextPromptMap() {
+     if (variables.hematologyPressed) return prompts.hemaInfo;
+     if (variables.pathologyPressed) return prompts.patoInfo;
+     if (variables.radiologyPressed) return prompts.radInfo;
+     return '';
+  }
+
+  String infoTextReference1(){
+    if (variables.hematologyPressed) return prompts.hemaRef1;
+    if (variables.pathologyPressed) return prompts.patoRef1;
+    if (variables.radiologyPressed) return prompts.radRef1;
+    return '';
+  }
+
+  String infoTextReference2(){
+    if (variables.pathologyPressed) return prompts.patoRef2;
+    if (variables.radiologyPressed) return prompts.radRef2;
+    return '';
+  }
+
+  String infoTextReference3(){
+    if (variables.pathologyPressed) return prompts.patoRef3;
+    if (variables.radiologyPressed) return prompts.radRef3;
+    return '';
+  }
+
+  String infoTextReference4(){
+    if (variables.radiologyPressed) return prompts.radRef4;
+    return '';
+  }
+
+  Uri url1Map() {
+    if (variables.hematologyPressed) return hemaSource1;
+    if (variables.pathologyPressed) return patoSource1;
+    if (variables.radiologyPressed) return radSource1;
+   return Uri.parse('');
+  }
+  Uri url2Map() {
+    if (variables.hematologyPressed) return hemaSource2;
+    if (variables.pathologyPressed) return patoSource2;
+    if (variables.radiologyPressed) return radSource2;
+    return Uri.parse('');
+  }
+  Uri url3Map() {
+    if (variables.hematologyPressed) return hemaSource3;
+    if (variables.pathologyPressed) return patoSource3;
+    if (variables.radiologyPressed) return radSource3;
+    return Uri.parse('');
+  }
+  Uri url4Map() {
+    //if (variables.hematologyPressed) return hemaSource4;
+    if (variables.radiologyPressed) return radSource4;
+    return Uri.parse('');
+  }
+
 
   String determineAiAssetPath() {
     if (variables.h_1selected) return variables.ai_s_1;
@@ -283,29 +522,6 @@ class _ImageAnalysis extends State<ImageAnalysis>{
     if (variables.r_3selected) return variables.info_r_3;
     if (variables.r_4selected) return variables.info_r_4;
     return '';
-  }
-
-  void generateReport() async {
-    setState(() {
-      isLoading = true;
-      prompt = '';
-      variables.generatePressed = true;
-    });
-
-    final speech = await openAiService.chatGPTApi(prompt);
-
-    setState(() {
-      isLoading = false;
-      chatSpeech = speech;
-      variables.generatePressed = true;
-    });
-
-    if(mounted){
-      setState(() {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => GeneratedReport()));
-      });
-    }
-    //promptController.clear();
   }
 
 }

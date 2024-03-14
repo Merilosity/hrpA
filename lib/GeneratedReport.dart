@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hrp/SampleSelection.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'ChatSection.dart';
 import 'color_variables.dart';
@@ -15,7 +16,7 @@ class GeneratedReport extends StatefulWidget{
   }
 
 }
-final Uri _url = Uri.parse('https://flutter.dev');
+final Uri _url = Uri.parse('https://docs.google.com/forms/d/e/1FAIpQLSfUE3RTiOtcJ0QNna_L1g8DbrzaSwDkdJENVrqxouaddzYxow/viewform?usp=sf_link');
 
 Future<void> _launchUrl() async {
   if (!await launchUrl(_url)) {
@@ -195,7 +196,7 @@ class _GeneratedReport extends State<GeneratedReport>{
                                             setState(() {
                                               variables.tryAnotherSamplePressed = true;
                                               variables.resetVariables();
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) => SampleSelection()),);
+                                              Navigator.push(context, PageTransition(type: PageTransitionType.fade,duration: Duration(milliseconds: 500), child: SampleSelection()),);
                                             });
                                           }, // Image tapped
                                           child: Image.asset(
