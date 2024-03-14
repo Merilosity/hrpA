@@ -7,12 +7,15 @@ import 'package:hrp/color_variables.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:page_transition/page_transition.dart';
 
+import 'Introduction.dart';
+
 void main() async{
   await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
       .then((value) => runApp(const MyApp()));
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -25,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'RobotoCondensed',
       ),
-      home: SampleSelection(),
+      home: Introduction(),
     );
   }
 
