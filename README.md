@@ -1,16 +1,10 @@
-# hrp B-Version (Question)
+# hrp A/B-Version 
+Created as a requirement for the successful completion of the master's program Human-Computer Interaction, LMU Munich
 
-A new Flutter project.
+##Notice:
+- Versions are hosted on Firebase CLI
+- To use correctly, please create API Key for GPT and add to .env file or to firebase hosting.
+- If this is not done, Image Analysis will not load into Report.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  
+  
