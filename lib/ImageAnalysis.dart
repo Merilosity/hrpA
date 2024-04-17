@@ -256,12 +256,16 @@ class _ImageAnalysis extends State<ImageAnalysis>{
                                                 setState(() {
                                                   //generateInfoBox();
                                                   infoPressed = !infoPressed;
+                                                  /// ^^^^^ V2 --> Changed infoPressed= !inforPressed from active to commented out
                                                 });
                                               },
-                                              child: Image.asset(
-                                                variables.questionButton,
-                                                fit: BoxFit.contain,
-                                                width: screenWidth*0.09,
+                                              child: Opacity(
+                                                opacity: 1,
+                                                child: Image.asset(
+                                                  variables.questionButton,
+                                                  fit: BoxFit.contain,
+                                                  width: screenWidth*0.09,
+                                                ),
                                               ),
                                             ),
                                           ],

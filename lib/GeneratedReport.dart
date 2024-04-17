@@ -16,7 +16,7 @@ class GeneratedReport extends StatefulWidget{
   }
 
 }
-final Uri _url = Uri.parse('https://docs.google.com/forms/d/e/1FAIpQLSfUE3RTiOtcJ0QNna_L1g8DbrzaSwDkdJENVrqxouaddzYxow/viewform?usp=sf_link');
+final Uri _url = Uri.parse('https://docs.google.com/forms/d/e/1FAIpQLSfUE3RTiOtcJ0QNna_L1g8DbrzaSwDkdJENVrqxouaddzYxow/viewform?usp=sf_link'); ///V2 --> Changed link from 'https://docs.google.com/forms/d/e/1FAIpQLSfUE3RTiOtcJ0QNna_L1g8DbrzaSwDkdJENVrqxouaddzYxow/viewform?usp=sf_link' to 'https://docs.google.com/forms/d/e/1FAIpQLScCLgkn-RfCVUTCQJWpWIr0reiA0HdDPijQtKb5nDIpV0PvQQ/viewform?usp=sf_link'
 
 Future<void> _launchUrl() async {
   if (!await launchUrl(_url)) {
@@ -161,10 +161,7 @@ class _GeneratedReport extends State<GeneratedReport>{
                                      width: screenWidth*0.50,
                                      height: screenHeight*0.70,
                                     color: Colors.black12,
-                                      child: Expanded(
-                                          child:
-                                          const ChatSection(),
-                                      ),
+                                      child: const ChatSection(),
                                     ),
                                   ),
                                   Flexible(

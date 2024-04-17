@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hrp/SampleSelection.dart';
 import 'package:hrp/color_variables.dart';
+import 'package:page_transition/page_transition.dart';
 
 class Disclaimer extends StatefulWidget {
   const Disclaimer({super.key});
@@ -13,52 +14,65 @@ class Disclaimer extends StatefulWidget {
 class _Disclaimer extends State<Disclaimer> {
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Material(
-        type: MaterialType.transparency,
-        child:Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            color: Colors.black,
-            child: Container(
-              width: 1280,
-              height: 823,
-              color: color_variables.background_dark,
-              child: Column(
-                children: [
-                   const Padding(
-                    padding:  EdgeInsets.fromLTRB(25,50,80,22),
-                    child: Text("Quick Disclaimer:",
-                        style: TextStyle(color: color_variables.yellow, fontSize: 39)),
+      type: MaterialType.transparency,
+      child:Container(
+        width: screenWidth,
+        height: screenHeight,
+        color: Colors.black,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(height: screenHeight*0.1,),
+              Flexible(
+                flex: 5,
+                child: Container(
+                  height: screenHeight*0.10,
+                  padding: const EdgeInsets.all(10),
+                  child:  Align(
+                    alignment: Alignment.center,
+                    child: Text("Disclaimer:\n\n",
+                        style: TextStyle(color: color_variables.yellow, fontSize: screenHeight*0.04)),
                   ),
-                  const Padding(
-                    padding:  EdgeInsets.fromLTRB(95,0,80,22),
-                    child:  Text("The image algorithm used in this study is highly acclaimed and has been reported to\nhave an accuracy of 97.2% in 93 out of 100 cases.",
-                        style: TextStyle(color: color_variables.white_intro_text_small, fontSize: 22)),
-                  ),
-                  const Padding(
-                    padding:  EdgeInsets.fromLTRB(50,0,80,22),
-                    child:  Text("GPT-4 has been reported to have an accuracy rate of 99.4% when it comes to\ngenerating accurate analysis reports of samples\nin haematology and pathology.",
-                        style: TextStyle(color: color_variables.white_intro_text_small, fontSize: 22)),
-                  ),
-                  IconButton(
-                    icon: Image.asset(
-                      'assets/images/B-Continue.png',
-                    ),
-                    // icon: Icon(Icons.add),
-                    iconSize: 261,
-                    onPressed: () {
-                      setState(() {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SampleSelection()),
-                        );
-                      });
-                    },
-                  )
-                ],
+                ),
               ),
-            ),
+              Flexible(
+                flex: 5,
+                child: Container(
+                  height: screenHeight*0.60,
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 350,
+                    vertical: 20,
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: Text("There are a total of 4 distinct Artificial Intelligences used in this study. GPT-4, Mantiscope, Chester AI, and QuPath represent the forefront of artificial intelligence and machine learning in their respective fields, offering unparalleled accuracy and reliability.\n\nGPT-4's language models boast an impressive ability to understand and generate human-like text, with accuracy rates often exceeding 90% in various tasks, making it a trusted partner for content creation and analysis.\n\nMantiscope, specializing in hematology, utilizes advanced imaging techniques to identify and classify blood cells with an accuracy that rivals human experts.\n\nChester AI, a radiology assistant, helps in diagnosing diseases from X-ray images with an accuracy of up to 85%, supporting faster and more reliable decision-making for healthcare professionals.\n\nQuPath, widely used in digital pathology, offers precise analysis of tissue samples, significantly improving the accuracy of cancer diagnosis and research. It's rate of accuracy when trained correctly has been recorded to be over 92%.",
+                      style: TextStyle(color: color_variables.white_intro_text_small, fontSize: screenHeight*0.02)),
+                ),
+              ),
+              Flexible(
+                flex: 5,
+                child: Container(
+                  height: screenHeight*0.10,
+                  child: GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, PageTransition(type: PageTransitionType.fade,duration: Duration(milliseconds: 500), child: SampleSelection()),);
+                    },
+                    child: Image.asset(
+                      'assets/images/B-Continue.png',
+                      fit: BoxFit.contain,
+                      width: double.infinity,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
+        ),
+      ),
     );
   }
 }

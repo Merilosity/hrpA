@@ -1,22 +1,18 @@
 import 'dart:convert'; // package to encode/decode JSON data type
-import 'package:flutter_dotenv/flutter_dotenv.dart'; // dot_env package
-import 'package:http/http.dart' as http; // http package
+import 'package:cloud_functions/cloud_functions.dart'; // Import Firebase Functions
 import 'variables.dart';
 import 'prompts.dart';
 
-var openAIApiKey = dotenv.env['OPEN_AI_API_KEY']; //access the OPEN_AI_API_KEY from the .env file in the root directory
-class OpenAiService{
-  // declaring a messages List to maintain chat history
-  final List<Map<String,String>> messages = [
+class OpenAiService {
+  // Declaring a messages List to maintain chat history
+  final List<Map<String, String>> messages = [
     {
-      "role" : "user",
-      "content" : "Ensure all responses at least 700 words and only relevant to the given prompt", //was 800
+      "role": "user",
+      "content": "Ensure all responses at least 800 words and only relevant to the given prompt", //was 800
     },
   ];
 
-  // this async function with return a future which will resolve to a string
-  Future<String> chatGPTApi(String medicallyData) async{
-
+  Future<String> chatGPTApi(String medicallyData) async {
     String prompt = '';
 
     Map<bool, String> conditionPromptMap = {
@@ -35,56 +31,37 @@ class OpenAiService{
     };
 
     for (var entry in conditionPromptMap.entries) {
-      if (entry.key == true) {
-        prompt = entry.value;
-        break;
+      print("${entry.key}: ${entry.value}"); // Debug Line
+      if (entry.key) { // Adjusted for readability
+        prompt += entry.value; // Concatenate prompts if multiple conditions are true
       }
     }
-
-    // add the prompt to messages
+    // Add the user's prompt to messages for history
     messages.add({
-      "role" : "user",
-      "content" : prompt,
+      "role": "user",
+      "content": prompt,
     });
 
-    // post the prompt to the API and receive response
-    try{
-      final res = await http.post(
-        Uri.parse("https://api.openai.com/v1/chat/completions"),
-        headers:{
-          "Content-Type": "application/json",
-          "Authorization": "Bearer $openAIApiKey"
-        },
-        // encode the object to JSON
-        body: jsonEncode(
-          {
-            "model" : "gpt-4",
-            "messages" : messages,
-            "max_tokens": 5000, // Increase if more detail is needed
-            "temperature": 0.7, // Adjust for creativity vs consistency
-          },
-        ),
-      );
+    try {
+      final functions = FirebaseFunctions.instance;
+      final callable = functions.httpsCallable('chatWithOpenAI');
+      final HttpsCallableResult result = await callable.call({
+        'prompt': prompt,
+        'max_tokens': 5000,
+        'temperature': 0.7,
+      });
 
-      if(res.statusCode == 200){
-        // decode the JSON response
-        String response = jsonDecode(res.body)['choices'][0]['message']['content'];
-        response = response.trim();
-        // add the response to messages and return response
-        messages.add(
-            {
-              "role" : "assistant",
-              "content" : response,
-            }
-        );
-        return response;
-      }
-      else{
-        return "OOPS! An Error occured. \n Please try again after sometime";
-      }
+      final String response = result.data.toString().trim();
+
+      print("Extracted Response: $response");
+
+      messages.add({"role": "assistant", "content": response});
+
+      return response;
+    } catch (error) {
+      print("Error calling Firebase Function: $error");
+      return "An error occurred: $error. Please try again later.";
     }
-    catch (error){
-      return error.toString();
-    }
+
   }
 }

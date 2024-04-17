@@ -6,12 +6,15 @@ import 'package:hrp/SampleSelection.dart';
 import 'package:hrp/color_variables.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 import 'Introduction.dart';
 
 void main() async{
-  await dotenv.load();
+  //await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
   SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
       .then((value) => runApp(const MyApp()));
 }

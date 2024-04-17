@@ -1,5 +1,16 @@
 {
-  "projects": {
-    "default": "hrpb-1977e"
-  }
+  "projects": {},
+  "targets": {
+    "hrpb-1977e": {
+      "hosting": {
+        "site1": [
+          "hrpbversion1"
+        ],
+        "site2": [
+          "hrpbversion2"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

@@ -84,12 +84,9 @@ class _ChatSectionState extends State<ChatSection> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(10,20,20,0),
-            child: Flexible(
-              flex: 1,
-              child: Image.asset(
-                "assets/images/openaiLogo.png",
-                width: 40,
-              ),
+            child: Image.asset(
+              "assets/images/openaiLogo.png",
+              width: 40,
             ),
           ),],),
           // chatGPT response container
